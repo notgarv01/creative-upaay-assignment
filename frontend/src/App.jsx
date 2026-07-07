@@ -37,10 +37,10 @@ const App = () => {
   return (
     <BrowserRouter>
       {/* Page Centering Wrapper */}
-      <div className="min-h-screen bg-[#0F172A] flex justify-center items-center py-0 sm:py-6">
+      <div className="min-h-screen bg-[#0F172A] flex justify-center items-center py-0 min-[391px]:py-6">
         
         {/* Mobile Viewport Container */}
-        <div className="w-[390px] h-screen sm:h-[844px] bg-brand-bg relative overflow-hidden shadow-2xl flex flex-col border border-slate-200/10 sm:rounded-[36px]">
+        <div className="w-full min-[391px]:w-[390px] h-screen min-[391px]:h-[844px] bg-brand-bg relative overflow-hidden shadow-2xl flex flex-col border border-slate-200/10 min-[391px]:rounded-[36px]">
           
           {/* Toast Notification Banner */}
           <div 

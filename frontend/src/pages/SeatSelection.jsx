@@ -251,13 +251,15 @@ const SeatSelection = ({ showToast }) => {
       </div>
 
       {/* Bottom Checkout Trigger Bar */}
-      <div className="bg-white border-t border-slate-100 pt-2.5 pb-2.5 px-6 z-30 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] shrink-0 flex flex-col gap-2.5">
-        <button 
-          onClick={handleViewSummary}
-          className="w-full bg-brand-primary hover:bg-[#3B32C4] active:scale-[0.98] text-white py-3 rounded-2xl font-semibold shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all duration-300 text-sm tracking-wide focus:outline-none"
-        >
-          View Booking Summary
-        </button>
+      <div className="flex flex-col shrink-0">
+        <div className="bg-white border-t border-slate-100 pt-2.5 pb-2.5 px-6 z-30 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] flex flex-col gap-2.5">
+          <button 
+            onClick={handleViewSummary}
+            className="w-full bg-brand-primary hover:bg-[#3B32C4] active:scale-[0.98] text-white py-3 rounded-2xl font-semibold shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all duration-300 text-sm tracking-wide focus:outline-none"
+          >
+            View Booking Summary
+          </button>
+        </div>
         <BottomNav />
       </div>
 

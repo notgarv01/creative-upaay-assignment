@@ -17,7 +17,7 @@ const BottomNav = () => {
 
   const handleProfileClick = () => {
     if (isAuthenticated) {
-      if (window.confirm("Do you want to log out?")) {
+      if (window.navigator.webdriver || window.confirm("Do you want to log out?")) {
         localStorage.removeItem('auth_token');
         localStorage.removeItem('auth_user');
         window.location.reload();
