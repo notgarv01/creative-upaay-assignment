@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { Schedule, User, SeatLock, Booking, Movie, Theatre } from '../models.js';
 import { seedDatabase } from '../seed.js';
 
-const MONGODB_URI = 'mongodb://localhost:27017/movie_booking';
+const MONGODB_URI = 'mongodb+srv://garvgupta6778_db_user:fF4wOZv81wxFgJuO@cluster0.krh2f8x.mongodb.net/movie_booking?retryWrites=true&w=majority';
 
 async function runAcidTest() {
   console.log('--- START ACID COMPLIANCE TEST ---');
