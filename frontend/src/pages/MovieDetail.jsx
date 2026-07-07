@@ -67,7 +67,7 @@ const MovieDetail = ({ showToast }) => {
       <div className="flex-grow overflow-y-auto no-scrollbar pb-4">
         
         {/* Hero Image Section */}
-        <div className="relative w-full h-[150px] overflow-hidden select-none shrink-0 shadow-sm">
+        <div className="relative w-full h-[250px] overflow-hidden select-none shrink-0 shadow-sm">
           <img src={movie.bannerImage} alt={movie.title} className="w-full h-full object-cover" />
           
           {/* Close Button overlay (top-left) */}
