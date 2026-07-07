@@ -1,9 +1,18 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { Schedule, User, SeatLock, Booking, Movie, Theatre } from '../models.js';
 import { seedDatabase } from '../seed.js';
 
-const MONGODB_URI = 'mongodb+srv://garvgupta6778_db_user:fF4wOZv81wxFgJuO@cluster0.krh2f8x.mongodb.net/movie_booking?retryWrites=true&w=majority';
+dotenv.config();
+
+const MONGODB_URI = process.env.MONGODB_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!MONGODB_URI || !JWT_SECRET) {
+  console.error('FATAL: MONGODB_URI or JWT_SECRET is not defined in environment variables.');
+  process.exit(1);
+}
 
 async function runConcurrencyTest() {
   console.log('--- START CONCURRENCY LOCK TEST ---');
@@ -39,8 +48,8 @@ async function runConcurrencyTest() {
   const user2 = await User.create({ name: 'User Two', email: user2Email, password: 'password' });
 
   // Generate tokens
-  const token1 = jwt.sign({ id: user1._id, email: user1.email, name: user1.name }, 'secret-key-12345');
-  const token2 = jwt.sign({ id: user2._id, email: user2.email, name: user2.name }, 'secret-key-12345');
+  const token1 = jwt.sign({ id: user1._id, email: user1.email, name: user1.name }, JWT_SECRET);
+  const token2 = jwt.sign({ id: user2._id, email: user2.email, name: user2.name }, JWT_SECRET);
 
   // Seats to compete for
   const targetSeats = ['B-5', 'B-6'];

@@ -10,7 +10,11 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://garvgupta6778_db_user:fF4wOZv81wxFgJuO@cluster0.krh2f8x.mongodb.net/movie_booking?retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI;
+if (!MONGODB_URI) {
+  console.error('FATAL: MONGODB_URI environment variable is not defined.');
+  process.exit(1);
+}
 
 // Middlewares
 app.use(cors());

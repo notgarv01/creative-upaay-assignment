@@ -2,11 +2,18 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 import { User, Movie, Theatre, Schedule, Booking, SeatLock } from './models.js';
 import { acquireSeatLocks, releaseSeatLocks } from './lockService.js';
 
+dotenv.config();
+
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || '763524c05b4a0ddb0ae8afeb2465611f4419b4b6';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET environment variable is not defined.');
+  process.exit(1);
+}
 
 // Authentication Middleware
 export function authenticateToken(req, res, next) {

@@ -1,9 +1,18 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { Schedule, User, SeatLock, Booking, Movie, Theatre } from '../models.js';
 import { seedDatabase } from '../seed.js';
 
-const MONGODB_URI = 'mongodb+srv://garvgupta6778_db_user:fF4wOZv81wxFgJuO@cluster0.krh2f8x.mongodb.net/movie_booking?retryWrites=true&w=majority';
+dotenv.config();
+
+const MONGODB_URI = process.env.MONGODB_URI;
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!MONGODB_URI || !JWT_SECRET) {
+  console.error('FATAL: MONGODB_URI or JWT_SECRET is not defined in environment variables.');
+  process.exit(1);
+}
 
 async function runAcidTest() {
   console.log('--- START ACID COMPLIANCE TEST ---');
@@ -35,7 +44,7 @@ async function runAcidTest() {
   const user = await User.create({ name: 'Acid Test User', email: userEmail, password: 'password' });
 
   // Generate token
-  const token = jwt.sign({ id: user._id, email: user.email, name: user.name }, 'secret-key-12345');
+  const token = jwt.sign({ id: user._id, email: user.email, name: user.name }, JWT_SECRET);
 
   const testSeats = ['C-1', 'C-2'];
 
