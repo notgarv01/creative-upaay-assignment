@@ -1,113 +1,270 @@
-# Movie Ticket Reservation App
+# Creative Upaay - Movie Ticket Booking Assignment
 
-A premium full-stack Movie Ticket Reservation web application built with **React**, **Redux Toolkit**, **Tailwind CSS**, **Node.js**, **Express**, and **MongoDB**. 
+This is a full-stack movie ticket booking application built with **React**, **Node.js**, **Express.js**, and **MongoDB**.
 
-The client interface is custom-crafted to represent a clean, minimalist mobile-oriented layout (centered viewport constrained to `390px` width) based on the Figma design specifications.
-
----
-
-## 🚀 Key Features
-
-### 🌟 Level 1 (Compulsory Core)
-- **Home Carousel & Lists**: Scrollable lists categorizing movies into *"Now Showing"* and *"Coming Soon"*, along with Movie Theatres and baseline price tags.
-- **Detailed Movie View**: Displays poster banners, synopses, release dates, and cast lists.
-- **Date & Theatre Scheduler**: Select a booking date from a scrollable timeline, choose a cinema theatre, and pick exact screen slots and formats (2D vs 3D).
-- **Programmatic Seat Matrix Grid**: Strict matrix generator matching Rows A-M and Columns 1-12 with sticky row headers. Clean state transitions:
-  - **Available**: Outlined white.
-  - **Occupied**: Grey solid (loaded in real-time from the backend database).
-  - **Selected**: Purple solid (limited to a maximum of 6 seats per transaction).
-- **Dynamic Pricing Panel**: Recalculates seat costs in real-time at the top right of the seating selector screen.
-- **Booking Summary & Fee Calculator**: Final receipt breakdown calculating ticket count, subtotal, static booking fees (₹20), and payable total.
-- **State Management & Persistence**: Integrated Redux Toolkit to manage selection state, which automatically persists in `localStorage` so refreshing mid-booking doesn't clear selected seats.
-
-### ⚡ Level 2 & Bonus (Advanced Engineering)
-1. **User Authentication (JWT)**: Login/Register screens. Validates details and blocks checkout until logged in. **Demo user credentials** are pre-filled on the login screen for seamless review.
-2. **Simulated Payment Gateway**: Supports Card/Wallet checkout forms with custom formatting and card validations (16-digit card checks, MM/YY expiry dates, and 3-digit CVV checks).
-3. **Advanced Concurrency Control**: Implements a distributed lock manager in MongoDB. A `SeatLock` collection with a compound unique index `{ scheduleId: 1, seat: 1 }` prevents race conditions. Simultaneous reservation requests for the same seat collide at the database level, preventing double booking.
-4. **ACID Transaction Compliance**: Orchestrates a rollback system. If the payment gateway returns an error, the backend rollbacks, releasing any locked seat reservations immediately. The checkout page features a **Simulate Payment Failure** checkbox to demonstrate this in real time.
-5. **My Bookings History & Cancellation**: A page listing active and past tickets with mock QR codes. Active bookings can be cancelled, releasing seats back to the available pool.
+The app follows the provided Figma design with a mobile-first layout (390px max width). It includes the complete movie booking flow, authentication using JWT, seat selection, booking history, payment simulation, and backend APIs with concurrency handling.
 
 ---
 
-## 🛠️ Technology Stack
+# Live Demo
 
-- **Frontend**: React, Redux Toolkit, React Router, Tailwind CSS, Lucide React (Icons).
-- **Backend**: Node.js, Express, MongoDB (via Mongoose), JSON Web Tokens (JWT), BcryptJS.
-- **Testing**: Fetch-based parallel async tests.
+Frontend: https://creative-upaay-assignment-psi.vercel.app/
+
+Backend: https://creative-upaay-assignment-ztkc.onrender.com
 
 ---
 
-## 📐 Architecture & System Design
+# Tech Stack
 
-```mermaid
-graph TD
-    Client[React Mobile App: 390px Viewport]
-    Store[Redux Store + LocalStorage]
-    Server[Node.js + Express API Server]
-    DB[(MongoDB Database)]
+## Frontend
+- React.js
+- Redux
+- CSS
+- React Router
 
-    Client -->|Actions| Store
-    Client -->|HTTP / API Requests| Server
-    Server -->|Mongoose Schemas| DB
-    Server -->|Atomic Locks| DB
+## Backend
+- Node.js
+- Express.js
+
+## Database
+- MongoDB
+
+## Authentication
+- JWT
+
+---
+
+# My Approach
+
+I started by building the complete UI from the Figma design.
+
+Once the UI was ready, I connected every screen together and built the full booking flow.
+
+After that, I added authentication, booking history, payment flow, and backend APIs.
+
+Finally, I focused on preventing double bookings using seat locking and implemented rollback logic so reserved seats are released automatically if a payment fails.
+
+---
+
+# Features
+
+## Home Page
+
+- Now Showing movies
+- Coming Soon movies
+- Theatre listing
+- Bottom navigation
+
+## Movie Details
+
+- Movie banner
+- Description
+- Cast
+- Release date
+- Available formats (2D / 3D)
+
+## Show Selection
+
+- Date picker
+- Theatre selection
+- Format selection
+- Screen time selection
+
+## Seat Selection
+
+- Interactive seat layout
+- Maximum 6 seats
+- Live price calculation
+- Occupied seats fetched from backend
+
+## Booking Summary
+
+- Selected seats
+- Ticket count
+- Total price
+- ₹20 booking fee
+
+## Authentication
+
+- Login
+- Sign Up
+- Demo Credentials
+
+## Payment
+
+- Card payment
+- Wallet payment
+- Card validation
+- Payment failure simulation
+
+## Booking History
+
+- View booked tickets
+- Mock QR codes
+- Cancel booking
+- Seats become available again after cancellation
+
+---
+
+# Backend Features
+
+## REST APIs
+
+REST APIs are available for:
+
+- Movies
+- Theatres
+- Bookings
+- Authentication
+
+## Seat Locking
+
+SeatLock schema prevents two users from booking the same seat at the same time.
+
+## ACID Rollback
+
+If payment fails, reserved seats are released automatically.
+
+## Database Seeding
+
+Movies and theatres are automatically added when the database is empty.
+
+---
+
+# State Management
+
+Redux is used to manage:
+
+- Selected movie
+- Selected theatre
+- Selected date
+- Selected show
+- Selected seats
+- Ticket price
+
+Local Storage keeps the booking state after page refresh.
+
+MongoDB stores the final booking after a successful payment.
+---
+
+# Level 2 Features Completed
+
+- Authentication (JWT)
+- Demo Credentials
+- Payment Simulation
+- Card Validation
+- Booking History
+- Ticket Cancellation
+- MongoDB Integration
+- Seat Locking
+- ACID Rollback
+
+---
+
+# Assumptions
+
+- Maximum 6 seats can be booked at once.
+- Booking fee is fixed at ₹20.
+- QR codes are mock QR codes.
+- Payment gateway is simulated.
+- Movie and theatre data are seeded automatically if the database is empty.
+
+---
+
+# Folder Structure
+
+```
+creative-upaay-assignment/
+│
+├── frontend/
+│
+├── backend/
+│
+└── README.md
 ```
 
 ---
 
-## 🏃 How to Run Locally
+# Getting Started
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [MongoDB](https://www.mongodb.com/) running locally on port `27017`
+## Clone the repository
 
-### Step 1: Clone and Set Up Database
-Make sure your MongoDB server is running:
 ```bash
-mongod
+git clone https://github.com/notgarv01/creative-upaay-assignment.git
+
+cd creative-upaay-assignment
+
 ```
-
-### Step 2: Start the Backend Server
-1. Navigate to the `backend/` directory.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the dev server (it will automatically seed the database on launch):
-   ```bash
-   npm run dev
-   ```
-The backend server runs at `http://localhost:5000`.
-
-### Step 3: Start the Frontend React Client
-1. Navigate to the `frontend/` directory.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the dev server:
-   ```bash
-   npm run dev
-   ```
-The frontend client runs at `http://localhost:5173`. Open this URL in your web browser. Enable "Mobile Device Emulation" in Developer Tools for the best experience.
 
 ---
 
-## 🧪 Running Integration Tests
+## Backend Setup
 
-We have included automated validation scripts to test our advanced concurrency and transaction rollback features:
-
-### Test 1: Concurrency Control (Double Booking Prevention)
-Verifies that duplicate concurrent bookings for the exact same seat conflict at the database level:
 ```bash
-# In the backend/ directory
+cd backend
+npm install
+```
+
+Create a `.env` file.
+
+```
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
+
+Run the backend.
+
+```bash
+npm run dev
+```
+
+Backend runs on
+
+```
+http://localhost:5000
+```
+
+---
+
+## Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open
+
+```
+http://localhost:5173
+```
+
+The app fills the screen on mobile devices and stays centered inside a phone frame on desktop.
+
+---
+
+# Running Tests
+
+## Double Booking Test
+
+Checks that two users cannot reserve the same seat.
+
+```bash
+cd backend
 node tests/test-concurrency.js
 ```
-*Expected Outcome*: One user books successfully (201 status); the other fails with a `409 Conflict` status code and a seat collision message.
 
-### Test 2: ACID Transactions & Rollback on Failure
-Verifies that payment gateway failures trigger a total seat rollback in MongoDB:
+---
+
+## ACID Rollback Test
+
+Checks that reserved seats are released after a failed payment.
+
 ```bash
-# In the backend/ directory
+cd backend
 node tests/test-acid.js
 ```
-*Expected Outcome*: The checkout fails with a `400 Bad Request` status; target seats revert to 'Available' in the database, and no booking document is saved.
+
+---
+
