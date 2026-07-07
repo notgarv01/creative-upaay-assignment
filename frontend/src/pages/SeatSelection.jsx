@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedSeats, setTotalPrice } from '../store/index.js';
 import BottomNav from '../components/BottomNav.jsx';
+import { API_BASE_URL } from '../config.js';
 
 const SeatSelection = ({ showToast }) => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ const SeatSelection = ({ showToast }) => {
 
     const fetchScheduleData = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/schedules?movieId=${selectedMovie._id}&theatreId=${selectedTheatre._id}&date=${encodeURIComponent(selectedDate)}`);
+        const res = await fetch(`${API_BASE_URL}/api/schedules?movieId=${selectedMovie._id}&theatreId=${selectedTheatre._id}&date=${encodeURIComponent(selectedDate)}`);
         if (!res.ok) {
           throw new Error('Failed to load schedule seats layout.');
         }

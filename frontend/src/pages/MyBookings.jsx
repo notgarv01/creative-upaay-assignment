@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import BottomNav from '../components/BottomNav.jsx';
+import { API_BASE_URL } from '../config.js';
 
 const MyBookings = ({ showToast }) => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const MyBookings = ({ showToast }) => {
 
   const fetchBookings = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/bookings', {
+      const res = await fetch(`${API_BASE_URL}/api/bookings`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -52,7 +53,7 @@ const MyBookings = ({ showToast }) => {
     if (!selectedBookingId) return;
     setCancelling(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/bookings/${selectedBookingId}/cancel`, {
+      const res = await fetch(`${API_BASE_URL}/api/bookings/${selectedBookingId}/cancel`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`

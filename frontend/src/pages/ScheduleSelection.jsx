@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFormat, setScreen, setTime, setTotalPrice } from '../store/index.js';
 import BottomNav from '../components/BottomNav.jsx';
+import { API_BASE_URL } from '../config.js';
 
 const ScheduleSelection = ({ showToast }) => {
   const { movieId, theatreId } = useParams();
@@ -23,9 +24,9 @@ const ScheduleSelection = ({ showToast }) => {
     const fetchData = async () => {
       try {
         const [movieRes, theatreRes, schedulesRes] = await Promise.all([
-          fetch(`http://localhost:5000/api/movies/${movieId}`),
-          fetch(`http://localhost:5000/api/theatres`),
-          fetch(`http://localhost:5000/api/schedules?movieId=${movieId}&theatreId=${theatreId}&date=${encodeURIComponent(selectedDate)}`)
+          fetch(`${API_BASE_URL}/api/movies/${movieId}`),
+          fetch(`${API_BASE_URL}/api/theatres`),
+          fetch(`${API_BASE_URL}/api/schedules?movieId=${movieId}&theatreId=${theatreId}&date=${encodeURIComponent(selectedDate)}`)
         ]);
 
         if (!movieRes.ok || !theatreRes.ok || !schedulesRes.ok) {

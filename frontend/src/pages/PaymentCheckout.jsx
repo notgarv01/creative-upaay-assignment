@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearBooking } from '../store/index.js';
 import BottomNav from '../components/BottomNav.jsx';
+import { API_BASE_URL } from '../config.js';
 
 const PaymentCheckout = ({ showToast }) => {
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ const PaymentCheckout = ({ showToast }) => {
     
     const fetchSchedule = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/schedules?movieId=${selectedMovie._id}&theatreId=${selectedTheatre._id}&date=${encodeURIComponent(selectedDate)}`);
+        const res = await fetch(`${API_BASE_URL}/api/schedules?movieId=${selectedMovie._id}&theatreId=${selectedTheatre._id}&date=${encodeURIComponent(selectedDate)}`);
         if (res.ok) {
           const data = await res.json();
           const matched = data.find(
@@ -129,7 +130,7 @@ const PaymentCheckout = ({ showToast }) => {
         })
       };
 
-      const res = await fetch('http://localhost:5000/api/bookings', {
+      const res = await fetch(`${API_BASE_URL}/api/bookings`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { loginSuccess } from '../store/index.js';
 import { Eye, EyeOff } from 'lucide-react';
+import { API_BASE_URL } from '../config.js';
 
 const Login = ({ showToast }) => {
   const [tab, setTab] = useState('login'); // 'login' or 'signup'
@@ -44,7 +45,7 @@ const Login = ({ showToast }) => {
     }
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: loginEmail, password: loginPassword })
@@ -76,7 +77,7 @@ const Login = ({ showToast }) => {
     }
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/auth/register', {
+      const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: signupName, email: signupEmail, password: signupPassword })

@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMovie, setFormat } from '../store/index.js';
 import BottomNav from '../components/BottomNav.jsx';
+import { API_BASE_URL } from '../config.js';
 
 const MovieDetail = ({ showToast }) => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const MovieDetail = ({ showToast }) => {
   useEffect(() => {
     const fetchMovieDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/movies/${id}`);
+        const res = await fetch(`${API_BASE_URL}/api/movies/${id}`);
         if (!res.ok) {
           throw new Error('Movie not found.');
         }

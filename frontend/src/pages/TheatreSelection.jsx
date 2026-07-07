@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTheatre, setDate } from '../store/index.js';
 import BottomNav from '../components/BottomNav.jsx';
+import { API_BASE_URL } from '../config.js';
 
 const TheatreSelection = ({ showToast }) => {
   const { movieId } = useParams();
@@ -29,8 +30,8 @@ const TheatreSelection = ({ showToast }) => {
     const fetchData = async () => {
       try {
         const [movieRes, theatresRes] = await Promise.all([
-          fetch(`http://localhost:5000/api/movies/${movieId}`),
-          fetch('http://localhost:5000/api/theatres')
+          fetch(`${API_BASE_URL}/api/movies/${movieId}`),
+          fetch(`${API_BASE_URL}/api/theatres`)
         ]);
         
         if (!movieRes.ok || !theatresRes.ok) {
