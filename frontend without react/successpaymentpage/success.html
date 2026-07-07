@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#0F172A]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Booking - Payment Success</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#080720',      // Deep navy matching mockups
+              primary: '#4F46E5',   // Indigo branding accent
+              bg: '#F8F9FD',        // Light body background
+              textGray: '#8B98B1',  // Muted text
+              cardBg: '#FFFFFF',    // White card background
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-brand-bg mx-auto h-screen shadow-2xl flex flex-col justify-between relative border-x border-slate-200/20 font-sans overflow-hidden">
+
+  <!-- Main Scrollable Content Area -->
+  <div class="flex-grow overflow-y-auto no-scrollbar pb-4">
+    
+    <!-- Top Header Close Link -->
+    <div class="px-6 pt-5 flex justify-end select-none shrink-0">
+      <a href="../homepage/home.html" class="text-brand-textGray hover:text-brand-primary transition-colors font-bold text-sm">
+        Close
+      </a>
+    </div>
+
+    <!-- Success Checkmark Header -->
+    <div class="px-6 mt-2 flex flex-col items-center select-none shrink-0">
+      <!-- Emerald Checkmark circle -->
+      <div class="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500 shadow-sm border border-emerald-100">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+      <h1 class="text-sm font-bold text-slate-800 mt-3.5 tracking-wide">Payment Successful!</h1>
+    </div>
+
+    <!-- Ticket Receipt Card -->
+    <div class="px-6 mt-6 shrink-0">
+      <div class="bg-white rounded-3xl border border-slate-100 shadow-[0_10px_32px_rgba(0,0,0,0.03)] overflow-hidden flex flex-col">
+        
+        <!-- Hero scene header image banner -->
+        <div class="w-full h-[155px] overflow-hidden bg-slate-100 select-none">
+          <img src="../images/success_hero.png" alt="Meg 2 Movie Action Banner" class="w-full h-full object-cover">
+        </div>
+
+        <!-- Ticket Card Content details -->
+        <div class="p-5 flex flex-col">
+          
+          <!-- Movie Title -->
+          <h2 class="text-md font-bold text-slate-900 leading-tight">Meg 2: The Trench</h2>
+
+          <!-- Detailed Columns (2-column layout) -->
+          <div class="grid grid-cols-2 gap-y-4 gap-x-2 mt-4 text-[11px] select-none">
+            
+            <!-- Col 1 top: Theater -->
+            <div class="flex flex-col gap-0.5">
+              <span class="font-bold text-slate-800" id="theater-text">The Grandview</span>
+              <span class="font-semibold text-brand-textGray text-[10px]" id="date-text">Friday, October 10</span>
+            </div>
+
+            <!-- Col 2 top: Screen & Format -->
+            <div class="flex flex-col gap-0.5">
+              <span class="font-bold text-slate-800" id="screen-format-text">Screen 1 - 2D</span>
+              <span class="font-semibold text-brand-textGray text-[10px]" id="time-text">10:00 AM</span>
+            </div>
+
+            <!-- Col 1 bottom: Seats pill list -->
+            <div class="flex flex-col gap-1">
+              <span class="font-bold text-slate-700 text-[10px] uppercase tracking-wide">Seats:</span>
+              <div id="seats-list-container" class="flex flex-wrap gap-1.5 mt-0.5">
+                <!-- Populated dynamically -->
+                <span class="bg-[#5C6E8D] text-white px-2 py-0.5 rounded-md font-bold text-[9px] shadow-sm shadow-[#5C6E8D]/10">J9</span>
+                <span class="bg-[#5C6E8D] text-white px-2 py-0.5 rounded-md font-bold text-[9px] shadow-sm shadow-[#5C6E8D]/10">J10</span>
+              </div>
+            </div>
+
+            <!-- Col 2 bottom: Paid totals -->
+            <div class="flex flex-col gap-0.5">
+              <span class="font-bold text-slate-700 text-[10px] uppercase tracking-wide">Amount Paid:</span>
+              <span class="font-bold text-brand-primary text-sm mt-0.5" id="total-text">₹580</span>
+            </div>
+
+          </div>
+
+          <!-- Divider line -->
+          <hr class="border-slate-100 my-4 select-none">
+
+          <!-- Card Bottom footer (Transaction timestamp & QR Code) -->
+          <div class="flex justify-between items-end select-none">
+            
+            <!-- Left block: transaction details -->
+            <div class="flex flex-col gap-1 pb-1">
+              <span class="text-brand-textGray text-[9px] font-semibold leading-none uppercase tracking-wide">Transaction Date:</span>
+              <span id="timestamp-text" class="text-slate-600 text-[10px] font-bold mt-0.5">10/9/2023 10:45 AM</span>
+            </div>
+
+            <!-- Right block: working QR Code image -->
+            <div class="w-16 h-16 flex items-center justify-center p-1 rounded-xl bg-slate-50 border border-slate-100/50">
+              <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=Meg2Booking" alt="QR Code Link" class="w-full h-full object-contain">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Helper text instructions -->
+    <div class="px-6 mt-6 select-none shrink-0 text-center">
+      <p class="text-[11px] font-semibold text-brand-textGray leading-relaxed">
+        You may view all purchased tickets in the ticket page.
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Bottom Nav Tabs Bar -->
+  <div class="bg-white border-t border-slate-100 pt-2.5 pb-2.5 px-6 z-30 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] shrink-0 flex flex-col gap-2.5">
+    
+    <div class="flex justify-around pt-1.5 select-none">
+      <!-- Home Tab -->
+      <a href="../homepage/home.html" class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      </a>
+      <!-- Ticket Tab -->
+      <a href="../ticketdetails/ticket.html" class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12h12c.621 0 1.125.504 1.125 1.125V17c0 .621-.504 1.125-1.125 1.125h-12A1.125 1.125 0 013 17V7.125C3 6.504 3.504 6 4.125 6z" />
+        </svg>
+      </a>
+      <!-- Heart Tab -->
+      <button class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+        </svg>
+      </button>
+      <!-- Profile Tab -->
+      <button class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      </button>
+    </div>
+    
+  </div>
+
+  <!-- Javascript parser logic -->
+  <!-- Javascript parser logic -->
+  <script src="script.js" defer></script>
+</body>
+</html>

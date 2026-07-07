@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#0F172A]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Booking - Choose Schedule</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#080720',      // Deep navy matching mockups
+              primary: '#4F46E5',   // Indigo branding accent
+              bg: '#F8F9FD',        // Light body background
+              textGray: '#8B98B1',  // Muted text
+              cardBg: '#FFFFFF',    // White card background
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-brand-bg mx-auto h-screen shadow-2xl flex flex-col justify-between relative border-x border-slate-200/20 font-sans overflow-hidden">
+
+  <!-- Toast Notification System -->
+  <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-[#080720] text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none max-w-[320px] w-[90%]">
+    <div id="toast-icon" class="text-emerald-400">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <p id="toast-msg" class="text-xs font-semibold tracking-wide"></p>
+  </div>
+
+  <!-- Main Scrollable Content Area -->
+  <div class="flex-grow overflow-y-auto no-scrollbar pb-4">
+    
+    <!-- Hero Image Banner Section -->
+    <div class="relative w-full h-[190px] overflow-hidden select-none shrink-0 shadow-sm">
+      <img src="../images/schedule_hero.png" alt="Meg 2 Movie Action Scene" class="w-full h-full object-cover">
+      
+      
+      <!-- Header Overlays -->
+      <div class="absolute top-9 inset-x-4 flex justify-between items-center text-white drop-shadow z-10 select-none">
+        <!-- Back Link -->
+        <a href="../movietheater/theater.html" class="flex items-center gap-1.5 hover:text-slate-200 transition-colors font-bold text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+          Back
+        </a>
+        <!-- Cancel Link -->
+        <a href="../homepage/home.html" class="hover:text-slate-200 transition-colors font-bold text-sm">
+          Cancel
+        </a>
+      </div>
+
+      <!-- Movie and Schedule Details Overlay (bottom-left) -->
+      <div class="absolute bottom-8 left-6 text-white drop-shadow z-10">
+        <h1 class="text-lg font-bold leading-tight">Meg 2: The Trench</h1>
+        
+        <!-- Metadata row -->
+        <div class="flex flex-row items-center gap-3.5 mt-2 select-none">
+          <!-- Theater details -->
+          <div class="flex items-center gap-1 text-[12px] font- text-slate-200">
+            <svg class="w-3.5 h-3.5 text-slate-200 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+            <span id="theater-badge-text">The Grandview</span>
+          </div>
+          <!-- Date details -->
+          <div class="flex items-center gap-1 text-[12px] font-semibol text-slate-200">
+            <svg class="w-3.5 h-3.5 text-slate-200 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span id="date-badge-text">Friday, October 10</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Booking Progress Bar -->
+    <div class="px-6 mt-4 shrink-0">
+      <div class="w-full bg-[#E2E8F0] h-1.5 rounded-full overflow-hidden">
+        <div class="bg-brand-primary h-full w-[40%] rounded-full"></div>
+      </div>
+    </div>
+
+    <!-- Main Schedule Selection Area -->
+    <div class="px-6 mt-4 shrink-0">
+      <h2 class="text-md font-bold text-slate-800 leading-none">Choose Schedule</h2>
+      
+      <!-- Format and Pricing row -->
+      <div class="flex items-center justify-between mt-3.5 select-none">
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-bold text-slate-800">Format</span>
+          <div class="flex gap-2">
+            <!-- 2D Selector -->
+            <button id="format-2d" onclick="toggleFormat('2D')" class="w-10 h-7 flex items-center justify-center border border-brand-primary bg-brand-primary text-white rounded-lg text-[10px] font-bold transition-all duration-200 focus:outline-none">
+              2D
+            </button>
+            <!-- 3D Selector -->
+            <button id="format-3d" onclick="toggleFormat('3D')" class="w-10 h-7 flex items-center justify-center border border-slate-200 bg-white text-slate-400 rounded-lg text-[10px] font-bold transition-all duration-200 focus:outline-none hover:bg-slate-50/50">
+              3D
+            </button>
+          </div>
+        </div>
+        
+        <span class="text-xs font-bold text-slate-500">₹300 - ₹430</span>
+      </div>
+      
+      <hr class="border-slate-300/60 mt-3.5">
+    </div>
+
+    <!-- Screens and Times Grids -->
+    <div class="px-6 mt-4 flex flex-col gap-4 shrink-0">
+      
+      <!-- Screen 1 Section -->
+      <div>
+        <h3 class="text-xs font-bold text-slate-800 leading-none">Screen 1</h3>
+        
+        <!-- Screen 1 Time Slots -->
+        <div class="grid grid-cols-3 gap-2.5 mt-3 select-none">
+          <!-- 10:00 AM (Selected/Active) -->
+          <div onclick="selectTime(this, 'Screen 1', '10:00 AM')" class="time-slot w-full py-2.5 text-center text-xs font-bold rounded-xl cursor-pointer transition-all duration-200 bg-brand-primary border border-transparent text-white shadow-sm">
+            10:00 AM
+          </div>
+          <!-- 12:00 PM (Available/Inactive) -->
+          <div onclick="selectTime(this, 'Screen 1', '12:00 PM')" class="time-slot w-full py-2.5 text-center text-xs font-bold rounded-xl cursor-pointer transition-all duration-200 bg-white border border-brand-primary/20 text-brand-primary hover:bg-indigo-50/20">
+            12:00 PM
+          </div>
+          <!-- 2:00 PM (Unavailable) -->
+          <div class="w-full py-2.5 text-center text-xs font-semibold rounded-xl border border-slate-200/50 bg-white text-slate-300 cursor-not-allowed">
+            2:00 PM
+          </div>
+          <!-- 4:00 PM (Available/Inactive) -->
+          <div onclick="selectTime(this, 'Screen 1', '4:00 PM')" class="time-slot w-full py-2.5 text-center text-xs font-bold rounded-xl cursor-pointer transition-all duration-200 bg-white border border-brand-primary/20 text-brand-primary hover:bg-indigo-50/20">
+            4:00 PM
+          </div>
+          <!-- 6:00 PM (Available/Inactive) -->
+          <div onclick="selectTime(this, 'Screen 1', '6:00 PM')" class="time-slot w-full py-2.5 text-center text-xs font-bold rounded-xl cursor-pointer transition-all duration-200 bg-white border border-brand-primary/20 text-brand-primary hover:bg-indigo-50/20">
+            6:00 PM
+          </div>
+          <!-- 8:00 PM (Unavailable) -->
+          <div class="w-full py-2.5 text-center text-xs font-semibold rounded-xl border border-slate-200/50 bg-white text-slate-300 cursor-not-allowed">
+            8:00 PM
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 2 Section -->
+      <div>
+        <h3 class="text-xs font-bold text-slate-800 leading-none">Screen 2</h3>
+        
+        <!-- Screen 2 Time Slots -->
+        <div class="grid grid-cols-3 gap-2.5 mt-3 select-none">
+          <!-- 10:00 AM (Available/Inactive) -->
+          <div onclick="selectTime(this, 'Screen 2', '10:00 AM')" class="time-slot w-full py-2.5 text-center text-xs font-bold rounded-xl cursor-pointer transition-all duration-200 bg-white border border-brand-primary/20 text-brand-primary hover:bg-indigo-50/20">
+            10:00 AM
+          </div>
+          <!-- 12:00 PM (Available/Inactive) -->
+          <div onclick="selectTime(this, 'Screen 2', '12:00 PM')" class="time-slot w-full py-2.5 text-center text-xs font-bold rounded-xl cursor-pointer transition-all duration-200 bg-white border border-brand-primary/20 text-brand-primary hover:bg-indigo-50/20">
+            12:00 PM
+          </div>
+          <!-- 2:00 PM (Unavailable) -->
+          <div class="w-full py-2.5 text-center text-xs font-semibold rounded-xl border border-slate-200/50 bg-white text-slate-300 cursor-not-allowed">
+            2:00 PM
+          </div>
+          <!-- 4:00 PM (Available/Inactive) -->
+          <div onclick="selectTime(this, 'Screen 2', '4:00 PM')" class="time-slot w-full py-2.5 text-center text-xs font-bold rounded-xl cursor-pointer transition-all duration-200 bg-white border border-brand-primary/20 text-brand-primary hover:bg-indigo-50/20">
+            4:00 PM
+          </div>
+          <!-- 6:00 PM (Available/Inactive) -->
+          <div onclick="selectTime(this, 'Screen 2', '6:00 PM')" class="time-slot w-full py-2.5 text-center text-xs font-bold rounded-xl cursor-pointer transition-all duration-200 bg-white border border-brand-primary/20 text-brand-primary hover:bg-indigo-50/20">
+            6:00 PM
+          </div>
+          <!-- 8:00 PM (Unavailable) -->
+          <div class="w-full py-2.5 text-center text-xs font-semibold rounded-xl border border-slate-200/50 bg-white text-slate-300 cursor-not-allowed">
+            8:00 PM
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Bottom Section (Action Button & Nav Bar) -->
+  <div class="bg-white border-t border-slate-100 pt-2.5 pb-2.5 px-6 z-30 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] shrink-0 flex flex-col gap-2.5">
+    
+    <!-- Get Tickets Action Button -->
+    <button onclick="handleGetTickets()" class="w-full bg-brand-primary hover:bg-[#3B32C4] active:scale-[0.98] text-white py-3 rounded-2xl font-semibold shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all duration-300 text-sm tracking-wide focus:outline-none">
+      Get Tickets
+    </button>
+    
+    <!-- Sticky Bottom Navigation Bar -->
+    <div class="flex justify-around pt-1.5 select-none">
+      <!-- Home Tab -->
+      <a href="../homepage/home.html" class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      </a>
+      
+      <!-- Ticket Tab -->
+      <a href="../ticketdetails/ticket.html" class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12h12c.621 0 1.125.504 1.125 1.125V17c0 .621-.504 1.125-1.125 1.125h-12A1.125 1.125 0 013 17V7.125C3 6.504 3.504 6 4.125 6z" />
+        </svg>
+      </a>
+      
+      <!-- Heart Tab -->
+      <button class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+        </svg>
+      </button>
+      
+      <!-- Profile Tab -->
+      <button class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      </button>
+    </div>
+    
+  </div>
+
+  <!-- JavaScript Interactions -->
+  <script src="script.js" defer></script>
+</body>
+</html>

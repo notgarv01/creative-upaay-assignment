@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+/* Tailwind CSS v4 Custom Theme Variables */
+@theme {
+  --color-brand-dark: #080720;
+  --color-brand-primary: #4F46E5;
+  --color-brand-bg: #F8F9FD;
+  --color-brand-textGray: #8B98B1;
+  --color-brand-cardBg: #FFFFFF;
+  --color-brand-border: #CFD4E2;
+}
+
+/* Custom utility classes */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.2s ease-in-out 2;
+}

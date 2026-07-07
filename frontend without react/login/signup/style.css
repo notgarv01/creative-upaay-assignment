@@ -1,0 +1,26 @@
+/* Custom Styling for visual perfection */
+body {
+  max-width: 390px;
+  min-width: 250px;
+}
+
+input:focus ~ label,
+input:not(:placeholder-shown) ~ label {
+  top: -12px;
+  font-size: 0.75rem;
+  color: #4F46E5;
+}
+
+input:focus {
+  outline: none;
+}
+
+/* Error Shake Animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+.shake {
+  animation: shake 0.4s ease-in-out;
+}

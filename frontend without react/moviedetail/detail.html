@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-[#0F172A]">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Booking - Details</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              dark: '#080720',      // Deep navy matching mockups
+              primary: '#4F46E5',   // Indigo/blue branding accent
+              bg: '#F8F9FD',        // Light body background
+              textGray: '#8B98B1',  // Muted text
+              cardBg: '#FFFFFF',    // White card background
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-brand-bg mx-auto h-screen shadow-2xl flex flex-col justify-between relative border-x border-slate-200/20 font-sans overflow-hidden">
+
+  <!-- Toast Notification System -->
+  <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-[#080720] text-white px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none max-w-[320px] w-[90%]">
+    <div id="toast-icon" class="text-emerald-400">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <p id="toast-msg" class="text-xs font-semibold tracking-wide"></p>
+  </div>
+
+  <!-- Main Scrollable Content Area -->
+  <div class="flex-grow overflow-y-auto no-scrollbar pb-4">
+    
+    <!-- Hero Image Section -->
+    <div class="relative w-full h-[270px] overflow-hidden select-none shrink-0 shadow-sm">
+      <img src="../images/detail_hero.png" alt="Meg 2 Movie Poster" class="w-full h-full object-cover">
+      
+      <!-- Close Button overlay (top-left) -->
+      <a href="../homepage/home.html" class="absolute top-3 left-4 flex items-center gap-1.5 text-white hover:text-slate-200 transition-colors drop-shadow-md z-10 select-none">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        </svg>
+        <span class="text-sm font-bold tracking-wide">Close</span>
+      </a>
+
+      <!-- Favorite Button overlay (top-right) -->
+      <button onclick="toggleFavorite(this)" class="absolute top-3 right-4 text-white hover:scale-105 active:scale-95 transition-all z-10 focus:outline-none drop-shadow-md">
+        <svg id="heart-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 transition-all duration-300">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Movie Information Section -->
+    <div class="px-6 mt-4 shrink-0">
+      
+      <!-- Title, PG rating, and rating score -->
+      <div class="flex items-start justify-between gap-2">
+        <div class="min-w-0">
+          <div class="flex items-center gap-3">
+            <h1 class="text-lg font-bold text-brand-dark leading-tight">Meg 2: The Trench</h1>
+            <span class="border border-brand-primary/40 text-brand-primary text-[9px] font-bold px-1.5 py-0.5 rounded-md flex-shrink-0 select-none bg-white">PG-13</span>
+          </div>
+          <p class="text-[11px] font-semibold text-brand-textGray mt-0.5">Action, Sci-fi, Horror</p>
+        </div>
+        
+        <!-- Score -->
+        <div class="flex items-center gap-1 text-slate-800 font-bold text-xs bg-white border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.01)] py-1 px-2 rounded-xl shrink-0 select-none">
+          <svg class="w-3.5 h-3.5 text-slate-800" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <span>5.1</span>
+        </div>
+      </div>
+
+      <!-- Movie Synopsis -->
+      <p class="text-xs text-[#7E8BA0] leading-[1.5] font-medium mt-3">
+        A research team encounters multiple threats while exploring the depths of the ocean, including a malevolent mining operation.
+      </p>
+
+      <!-- Format Available Section -->
+      <div class="mt-4">
+        <h2 class="text-xs font-bold text-slate-800 leading-none">Format Available</h2>
+        <div class="flex gap-2.5 mt-2.5 select-none">
+          <!-- 2D Selector -->
+          <button id="format-2d" onclick="selectFormat('2D')" class="w-11 h-8 flex items-center justify-center border border-brand-primary text-brand-primary rounded-lg text-[11px] font-bold bg-white hover:bg-indigo-50/20 active:scale-95 transition-all duration-200 focus:outline-none">
+            2D
+          </button>
+          <!-- 3D Selector -->
+          <button id="format-3d" onclick="selectFormat('3D')" class="w-11 h-8 flex items-center justify-center border border-slate-200 text-slate-400 rounded-lg text-[11px] font-bold bg-white hover:bg-slate-50/20 active:scale-95 transition-all duration-200 focus:outline-none">
+            3D
+          </button>
+        </div>
+      </div>
+
+      <!-- Release Date Section -->
+      <div class="mt-4">
+        <h2 class="text-xs font-bold text-slate-800 leading-none">Release Date</h2>
+        <p class="text-[11px] font-semibold text-[#7E8BA0] mt-2">10 June 2026</p>
+      </div>
+
+      <!-- Cast Section -->
+      <div class="mt-4">
+        <h2 class="text-xs font-bold text-slate-800 leading-none">Cast</h2>
+        <div class="flex gap-3 overflow-x-auto no-scrollbar py-2 mt-1.5 scroll-smooth snap-x snap-mandatory">
+          
+          <!-- Cast Member 1: Jason Statham -->
+          <div class="flex items-center gap-2.5 bg-white p-1.5 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.01)] border border-slate-100/50 w-[145px] shrink-0 snap-start select-none">
+            <img src="../images/cast_jason.png" alt="Jason Statham" class="w-9 h-9 rounded-lg object-cover shrink-0">
+            <div class="min-w-0">
+              <h4 class="text-[11px] font-bold text-slate-800 truncate">Jason Statham</h4>
+              <p class="text-[8px] text-brand-textGray font-semibold truncate mt-0.5">Jonas Taylor</p>
+            </div>
+          </div>
+
+          <!-- Cast Member 2: Jing Wu -->
+          <div class="flex items-center gap-2.5 bg-white p-1.5 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.01)] border border-slate-100/50 w-[145px] shrink-0 snap-start select-none">
+            <img src="../images/cast_jing.png" alt="Jing Wu" class="w-9 h-9 rounded-lg object-cover shrink-0">
+            <div class="min-w-0">
+              <h4 class="text-[11px] font-bold text-slate-800 truncate">Jing Wu</h4>
+              <p class="text-[8px] text-brand-textGray font-semibold truncate mt-0.5">Jiuming Zhang</p>
+            </div>
+          </div>
+
+          <!-- Cast Member 3: Shuya Sophia Cai -->
+          <div class="flex items-center gap-2.5 bg-white p-1.5 rounded-xl shadow-[0_4px_10px_rgba(0,0,0,0.01)] border border-slate-100/50 w-[145px] shrink-0 snap-start select-none">
+            <img src="../images/cast_shuya.png" alt="Shuya Sophia Cai" class="w-9 h-9 rounded-lg object-cover shrink-0">
+            <div class="min-w-0">
+              <h4 class="text-[11px] font-bold text-slate-800 truncate">Shuya S. Cai</h4>
+              <p class="text-[8px] text-brand-textGray font-semibold truncate mt-0.5">Meiying</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Bottom Section (Action Button & Nav Bar) -->
+  <div class="bg-white border-t border-slate-100 pt-2.5 pb-2.5 px-6 z-30 shadow-[0_-4px_12px_rgba(0,0,0,0.03)] shrink-0 flex flex-col gap-2.5">
+    <!-- Get Tickets Action Button -->
+    <button onclick="window.location.href='../movietheater/theater.html'" class="w-full bg-brand-primary hover:bg-[#3B32C4] active:scale-[0.98] text-white py-3 rounded-2xl font-semibold shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 transition-all duration-300 text-sm tracking-wide focus:outline-none">
+      Get Tickets
+    </button>
+    
+    <!-- Tab Nav Bar Icons -->
+    <div class="flex justify-around pt-1 select-none">
+      <!-- Home Tab -->
+      <a href="../homepage/home.html" class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      </a>
+      
+      <!-- Ticket Tab -->
+      <a href="../ticketdetails/ticket.html" class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12h12c.621 0 1.125.504 1.125 1.125V17c0 .621-.504 1.125-1.125 1.125h-12A1.125 1.125 0 013 17V7.125C3 6.504 3.504 6 4.125 6z" />
+        </svg>
+      </a>
+      
+      <!-- Heart Tab -->
+      <button class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+        </svg>
+      </button>
+      
+      <!-- Profile Tab -->
+      <button class="flex flex-col items-center gap-1 text-brand-textGray hover:text-brand-primary focus:outline-none transition-colors duration-200">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
