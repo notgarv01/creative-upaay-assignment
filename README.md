@@ -100,7 +100,7 @@ We have included automated validation scripts to test our advanced concurrency a
 Verifies that duplicate concurrent bookings for the exact same seat conflict at the database level:
 ```bash
 # In the backend/ directory
-node test-concurrency.js
+node tests/test-concurrency.js
 ```
 *Expected Outcome*: One user books successfully (201 status); the other fails with a `409 Conflict` status code and a seat collision message.
 
@@ -108,6 +108,6 @@ node test-concurrency.js
 Verifies that payment gateway failures trigger a total seat rollback in MongoDB:
 ```bash
 # In the backend/ directory
-node test-acid.js
+node tests/test-acid.js
 ```
 *Expected Outcome*: The checkout fails with a `400 Bad Request` status; target seats revert to 'Available' in the database, and no booking document is saved.

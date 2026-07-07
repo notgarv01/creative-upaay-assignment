@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import { Schedule, User, SeatLock, Booking, Movie, Theatre } from './models.js';
-import { seedDatabase } from './seed.js';
+import { Schedule, User, SeatLock, Booking, Movie, Theatre } from '../models.js';
+import { seedDatabase } from '../seed.js';
 
 const MONGODB_URI = 'mongodb://localhost:27017/movie_booking';
 
