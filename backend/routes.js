@@ -6,7 +6,7 @@ import { User, Movie, Theatre, Schedule, Booking, SeatLock } from './models.js';
 import { acquireSeatLocks, releaseSeatLocks } from './lockService.js';
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'secret-key-12345';
+const JWT_SECRET = process.env.JWT_SECRET || '763524c05b4a0ddb0ae8afeb2465611f4419b4b6';
 
 // Authentication Middleware
 export function authenticateToken(req, res, next) {
