@@ -104,8 +104,26 @@ const PaymentCheckout = ({ showToast }) => {
         showToast('Card number must be exactly 16 digits.', 'error');
         return;
       }
-      if (cardExpiry.length !== 5 || !cardExpiry.includes('/')) {
+      const parts = cardExpiry.split('/');
+      if (parts.length !== 2) {
         showToast('Expiry date must be MM/YY format.', 'error');
+        return;
+      }
+      const month = parseInt(parts[0], 10);
+      const year = parseInt(parts[1], 10);
+      if (isNaN(month) || month < 1 || month > 12) {
+        showToast('Please enter a valid month (01-12).', 'error');
+        return;
+      }
+      if (isNaN(year) || parts[1].length !== 2) {
+        showToast('Please enter a valid 2-digit year (YY).', 'error');
+        return;
+      }
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth() + 1;
+      const currentYear = currentDate.getFullYear() % 100;
+      if (year < currentYear || (year === currentYear && month < currentMonth)) {
+        showToast('Expiry date must be in the future.', 'error');
         return;
       }
       if (cardCvc.length !== 3) {

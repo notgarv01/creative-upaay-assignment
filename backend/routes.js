@@ -196,6 +196,24 @@ router.post('/bookings', authenticateToken, async (req, res) => {
       if (cvc.length !== 3) {
         throw new Error('Invalid CVV/CVC format.');
       }
+      const parts = expiry.split('/');
+      if (parts.length !== 2) {
+        throw new Error('Expiry date must be MM/YY format.');
+      }
+      const month = parseInt(parts[0], 10);
+      const year = parseInt(parts[1], 10);
+      if (isNaN(month) || month < 1 || month > 12) {
+        throw new Error('Please enter a valid month (01-12).');
+      }
+      if (isNaN(year) || parts[1].length !== 2) {
+        throw new Error('Please enter a valid 2-digit year (YY).');
+      }
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth() + 1;
+      const currentYear = currentDate.getFullYear() % 100;
+      if (year < currentYear || (year === currentYear && month < currentMonth)) {
+        throw new Error('Expiry date must be in the future.');
+      }
     }
 
     // Explicit request mock failure for ACID rollback demonstration
