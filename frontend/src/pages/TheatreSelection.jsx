@@ -20,9 +20,9 @@ const TheatreSelection = ({ showToast }) => {
     { label: "Sat 11", day: "Sat", date: "11" },
     { label: "Sun 12", day: "Sun", date: "12" },
     { label: "Mon 13", day: "Mon", date: "13" },
-    { label: "Tue 13", day: "Tue", date: "13" },
-    { label: "Wed 13", day: "Wed", date: "13" },
-    { label: "Thu 13", day: "Thu", date: "13" }
+    { label: "Tue 14", day: "Tue", date: "14" },
+    { label: "Wed 15", day: "Wed", date: "15" },
+    { label: "Thu 16", day: "Thu", date: "16" }
   ];
 
   useEffect(() => {
