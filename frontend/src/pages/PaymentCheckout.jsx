@@ -173,7 +173,7 @@ const PaymentCheckout = ({ showToast }) => {
       
       setTimeout(() => {
         dispatch(clearBooking());
-        navigate('/success', { state: { booking: data.booking, movie: selectedMovie, theatre: selectedTheatre, format: selectedFormat, screen: selectedScreen, time: selectedTime } });
+        navigate('/success', { state: { booking: data.booking, movie: selectedMovie, theatre: selectedTheatre, format: selectedFormat, screen: selectedScreen, time: selectedTime, date: selectedDate } });
       }, 1000);
 
     } catch (err) {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import Home from './pages/Home.jsx';
 import MovieDetail from './pages/MovieDetail.jsx';
 import TheatreSelection from './pages/TheatreSelection.jsx';

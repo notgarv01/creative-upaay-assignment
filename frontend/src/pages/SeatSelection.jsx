@@ -97,7 +97,6 @@ const SeatSelection = ({ showToast }) => {
 
   // Exact Rows configurations from script.js
   const rowsAtoG = ["A", "B", "C", "D", "E", "F", "G"];
-  const rowH = "H";
   const rowsJtoM = ["J", "K", "L", "M"];
 
   const renderSeat = (row, col) => {

@@ -6,7 +6,7 @@ const PaymentSuccess = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { booking, movie, theatre, format, screen, time } = location.state || {};
+  const { booking, movie, theatre, format, screen, time, date } = location.state || {};
 
   if (!booking) {
     return (
@@ -73,7 +73,7 @@ const PaymentSuccess = () => {
                 <div className="flex flex-col gap-0.5">
                   <span className="font-bold text-slate-800" id="theater-text">{theatre?.name || 'The Grandview'}</span>
                   <span className="font-semibold text-brand-textGray text-[10px]" id="date-text">
-                    {booking.scheduleId?.date === 'Fri 10' ? 'Friday, October 10' : booking.scheduleId?.date || 'Friday, October 10'}
+                    {(date || booking.scheduleId?.date) === 'Fri 10' ? 'Friday, October 10' : (date || booking.scheduleId?.date) || 'Friday, October 10'}
                   </span>
                 </div>
 

@@ -17,32 +17,31 @@ const MyBookings = ({ showToast }) => {
   const [selectedBookingId, setSelectedBookingId] = useState(null);
   const [cancelling, setCancelling] = useState(false);
 
-  const fetchBookings = async () => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/bookings`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      if (!res.ok) {
-        throw new Error('Failed to retrieve bookings list.');
-      }
-      const data = await res.json();
-      setBookings(data);
-    } catch (err) {
-      showToast(err.message, 'error');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login', { state: { from: { pathname: '/bookings' } } });
       return;
     }
+    const fetchBookings = async () => {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/bookings`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!res.ok) {
+          throw new Error('Failed to retrieve bookings list.');
+        }
+        const data = await res.json();
+        setBookings(data);
+      } catch (err) {
+        showToast(err.message, 'error');
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchBookings();
-  }, [isAuthenticated, token, navigate]);
+  }, [isAuthenticated, token, navigate, showToast]);
 
   const handleCancelClick = (bookingId) => {
     setSelectedBookingId(bookingId);
