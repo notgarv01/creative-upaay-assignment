@@ -12,6 +12,8 @@ Frontend: https://creative-upaay-assignment-psi.vercel.app/
 
 Backend: https://creative-upaay-assignment-ztkc.onrender.com
 
+Video Demo: https://drive.google.com/file/d/1JwId91b2X6MDXkIEQt1_54tfc3QPqdIH/view?usp=sharing
+
 ---
 
 # Tech Stack

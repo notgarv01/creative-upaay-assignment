@@ -32,6 +32,11 @@ app.use(morgan('dev'));
 // API Routes
 app.use('/api', apiRouter);
 
+// Root check
+app.get('/', (req, res) => {
+  res.send('Movie Ticket Booking API is active. Health status available at <a href="/health">/health</a>');
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', time: new Date() });
