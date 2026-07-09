@@ -1,8 +1,13 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { Schedule, User, SeatLock, Booking, Movie, Theatre } from '../models.js';
-import { seedDatabase } from '../seed.js';
+import { Schedule } from '../models/Schedule.model.js';
+import { User } from '../models/User.model.js';
+import { SeatLock } from '../models/SeatLock.model.js';
+import { Booking } from '../models/Booking.model.js';
+import { Movie } from '../models/Movie.model.js';
+import { Theatre } from '../models/Theatre.model.js';
+import { seedDatabase } from '../services/seed.service.js';
 
 dotenv.config();
 

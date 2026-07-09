@@ -177,12 +177,36 @@ MongoDB stores the final booking after a successful payment.
 
 ```
 creative-upaay-assignment/
+├── .gitignore
+├── README.md
 │
-├── frontend/
+├── frontend/             # Frontend React app (Vite, Redux, CSS)
+│   ├── .env.development
+│   ├── .env.production
+│   ├── package.json
+│   ├── index.html
+│   └── src/
+│       ├── App.jsx
+│       ├── main.jsx
+│       ├── config.js
+│       ├── index.css
+│       ├── components/
+│       ├── pages/
+│       └── store/
 │
-├── backend/
-│
-└── README.md
+└── backend/              # Backend Node/Express app (Clean MVC layout)
+    ├── .env              # Database URIs & JWT keys
+    ├── package.json
+    └── src/
+        ├── server.js     # Entry point (boots server & database)
+        ├── app.js        # Express app instance and global middlewares
+        ├── config/       # Configurations (db.config.js)
+        ├── controllers/  # Request controllers (auth, movie, theatre, booking)
+        ├── middlewares/  # Guards and interceptors (auth.middleware.js)
+        ├── models/       # Isolated mongoose schemas (.model.js)
+        ├── routes/       # Endpoint routing (auth, movie, theatre, booking, index)
+        ├── services/     # Logic services (lock.service.js, seed.service.js)
+        └── tests/        # Automated test cases (acid & concurrency testing)
 ```
 
 ---
@@ -193,9 +217,7 @@ creative-upaay-assignment/
 
 ```bash
 git clone https://github.com/notgarv01/creative-upaay-assignment.git
-
 cd creative-upaay-assignment
-
 ```
 
 ---
@@ -207,20 +229,20 @@ cd backend
 npm install
 ```
 
-Create a `.env` file.
+Create a `.env` file:
 
 ```
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 ```
 
-Run the backend.
+Run the backend:
 
 ```bash
 npm run dev
 ```
 
-Backend runs on
+Backend runs on:
 
 ```
 http://localhost:5000
@@ -231,12 +253,12 @@ http://localhost:5000
 ## Frontend Setup
 
 ```bash
-cd frontend
+cd ../frontend
 npm install
 npm run dev
 ```
 
-Open
+Open:
 
 ```
 http://localhost:5173
@@ -250,11 +272,11 @@ The app fills the screen on mobile devices and stays centered inside a phone fra
 
 ## Double Booking Test
 
-Checks that two users cannot reserve the same seat.
+Checks that two users cannot reserve the same seat concurrently.
 
 ```bash
 cd backend
-node tests/test-concurrency.js
+node src/tests/test-concurrency.js
 ```
 
 ---
@@ -265,8 +287,5 @@ Checks that reserved seats are released after a failed payment.
 
 ```bash
 cd backend
-node tests/test-acid.js
+node src/tests/test-acid.js
 ```
-
----
-

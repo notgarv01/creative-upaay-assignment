@@ -1,6 +1,8 @@
-import mongoose from 'mongoose';
-import { Movie, Theatre, Schedule, User } from './models.js';
 import bcrypt from 'bcryptjs';
+import { Movie } from '../models/Movie.model.js';
+import { Theatre } from '../models/Theatre.model.js';
+import { Schedule } from '../models/Schedule.model.js';
+import { User } from '../models/User.model.js';
 
 const moviesData = [
   {
@@ -139,9 +141,7 @@ export async function seedDatabase() {
     console.log(`Seeded ${seededTheatres.length} theatres.`);
 
     // Seed Schedules for dates and screens
-    // Dates match Figma tabs: Fri 10, Sat 11, Sun 12, Mon 13, Tue 14, Wed 15, Thu 16
     const days = ["Fri 10", "Sat 11", "Sun 12", "Mon 13", "Tue 14", "Wed 15", "Thu 16"];
-    const formats = ["2D", "3D"];
     const screens = ["Screen 1", "Screen 2"];
     const times = ["10:00 AM", "12:00 PM", "4:00 PM", "6:00 PM"];
 

@@ -1,8 +1,13 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { Schedule, User, SeatLock, Booking, Movie, Theatre } from '../models.js';
-import { seedDatabase } from '../seed.js';
+import { Schedule } from '../models/Schedule.model.js';
+import { User } from '../models/User.model.js';
+import { SeatLock } from '../models/SeatLock.model.js';
+import { Booking } from '../models/Booking.model.js';
+import { Movie } from '../models/Movie.model.js';
+import { Theatre } from '../models/Theatre.model.js';
+import { seedDatabase } from '../services/seed.service.js';
 
 dotenv.config();
 
@@ -92,15 +97,14 @@ async function runConcurrencyTest() {
         name: 'User Two',
         cardNumber: '5555666677778888',
         expiry: '10/27',
-        cvc: '456'
+        cvc: '999'
       }
     })
   });
 
   console.log('Sending parallel booking requests...');
-  
   const [res1, res2] = await Promise.all([request1, request2]);
-  
+
   const data1 = await res1.json();
   const data2 = await res2.json();
 
@@ -108,22 +112,25 @@ async function runConcurrencyTest() {
   console.log(`User 1 Response Status: ${res1.status}`, data1);
   console.log(`User 2 Response Status: ${res2.status}`, data2);
 
-  // Assertion: One request must return 201 (Created) and the other must return 409 (Conflict) or 400 (Double Booking)
-  const isOneSuccess = (res1.status === 201 && (res2.status === 409 || res2.status === 400)) ||
-                       (res2.status === 201 && (res1.status === 409 || res1.status === 400));
+  // Validate concurrency lock expectations:
+  // Exactly one request should succeed (status 201) and the other should fail with conflict (status 409 or 400 depending on rollback status)
+  const isOneSuccess = (res1.status === 201 && res2.status !== 201) || (res2.status === 201 && res1.status !== 201);
+  const isOneConflict = res1.status === 409 || res2.status === 409;
 
-  if (isOneSuccess) {
+  const testPassed = isOneSuccess && isOneConflict;
+
+  if (testPassed) {
     console.log('\n✅ SUCCESS: Concurrency lock test passed. One user booked successfully and duplicate concurrent attempt was blocked.');
   } else {
     console.error('\n❌ FAILURE: Concurrency lock test failed. Double booking might have occurred or response codes did not match expectations.');
   }
 
-  // Cleanup test users
+  // Cleanup
   await User.deleteOne({ _id: user1._id });
   await User.deleteOne({ _id: user2._id });
-  
   await mongoose.disconnect();
-  process.exit(isOneSuccess ? 0 : 1);
+
+  process.exit(testPassed ? 0 : 1);
 }
 
 runConcurrencyTest().catch(err => {

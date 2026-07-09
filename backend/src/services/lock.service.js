@@ -1,4 +1,4 @@
-import { SeatLock } from './models.js';
+import { SeatLock } from '../models/SeatLock.model.js';
 
 /**
  * Attempts to acquire locks for all requested seats.
